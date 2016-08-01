@@ -5,7 +5,7 @@
 var counter;
 //Addresses Time Remaining.
 var timer = {
-  time: 30,
+  time: 31,
   startTime: function(){
   counter = setInterval(timer.decrement, 1000);
   },
@@ -23,8 +23,6 @@ var timer = {
     clearInterval(counter);
   }
 }
-
-timer.startTime();
 
 //Set of questions and answers.
 var quiz = [
@@ -230,9 +228,41 @@ $('#column32Fake4').append(column3);
 console.log($('#column2Fake4').attr("title"));//this is the value of true or false
 }
 
-i = 4;
-displayQuestion(i);//pass the question i when looping
-displayFake1(i);
-displayFake2(i);
-displayFake3(i);
-displayFake4(i);
+//DISPLAYS REMAINING TIME '+ <span id="display-time">00</span>'
+function displayTimer (){
+  var row = $('<div>');
+  row.attr('id', 'timer');
+  row.attr('class', 'row');
+
+  var column1 = $('<div>');
+  row.attr('id', 'line1');
+  row.attr('class', 'col-lg-4');
+
+  var column2 = $('<div>');
+  row.attr('id', 'line2');
+  row.attr('class', 'col-lg-4');
+  column2.html('<p>Time Remaining: <span id="display-time"></span> </p>');
+
+  var column3 = $('<div>');
+  row.attr('id', 'line3');
+  row.attr('class', 'col-lg-4');
+
+  $('#clock').append(column2);
+  $('#timer').append(column1);
+  $('#line1').append(column2);
+  $('#line2').append(column3);
+
+}
+
+//START BUTTON
+$('#start').on('click', function(){
+  $('#start').hide();
+  timer.startTime();
+  displayTimer();
+  i = 4;
+  displayQuestion(i);//pass the question i when looping
+  displayFake1(i);
+  displayFake2(i);
+  displayFake3(i);
+  displayFake4(i);
+});
