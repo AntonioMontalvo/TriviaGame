@@ -1,6 +1,9 @@
 body{
    background-image: url('../images/space.jpeg');
 }
+#wrapper{
+  margin-bottom: 44px;
+}
 
 h1{
    text-align: center;

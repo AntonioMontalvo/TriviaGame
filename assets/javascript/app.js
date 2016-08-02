@@ -1,11 +1,10 @@
-// window.onload = function(){
-//
-// };
 
+var i = 0; //check the number of times the timer rests.
 var counter;
+var jumper;
 //Addresses Time Remaining.
 var timer = {
-  time: 31,
+  time: 20,
   startTime: function(){
   counter = setInterval(timer.decrement, 1000);
   },
@@ -14,15 +13,32 @@ var timer = {
     $('#display-time').html(timer.time );
       if (timer.time === 0){
         timer.reset();
+        i++;
+        timer.checkCycles();
       }
   },
   reset: function(){
-    timer.time = 30;
+    timer.time = 20;
   },
   stop: function (){
     clearInterval(counter);
+
+  },
+  checkCycles: function (){
+  jumper = setTimeout(nextBatch, 20000);
+
+    if( i === 8 ){
+      clearTimeout(jumper);
+    }
+
+    if( i === quiz.length ){
+      timer.stop(); //timer stop in i cycles
+
+    }
   }
+
 }
+
 
 //Set of questions and answers.
 var quiz = [
@@ -34,7 +50,7 @@ var quiz = [
      fake3:['Nope', false],
      fake4:['There are 3 planets in the solar system where water can exist as liquid, and gas.', false]
  	},
-    {
+  {
      question:'What is the shape of the Earth?',
      answer: 'The Earth is slightly pear-shaped.',
      fake1:['Earth is a perfect sphere.', false],
@@ -115,7 +131,7 @@ function displayQuestion(i){
   var column2 = $('<div>')
   column2.attr('id', 'column2');
   column2.attr('class', 'col-lg-4');
-  column2.html('<h3>' + quiz[i].question+ '</h3>');
+  column2.html('<h3>' + quiz[i].question + '</h3>');
 
   var column3 = $('<div>')
   column3.attr('id', 'column3');
@@ -148,7 +164,7 @@ $('#choice1').append(row);
 $('#fake1').append(column1);
 $('#column1Fake1').append(column2);
 $('#column32Fake1').append(column3);
-console.log($('#column2Fake1').attr("title"));//this is the value of true or false
+// console.log($('#column2Fake1').attr("title"));//this is the value of true or false
 }
 
 
@@ -174,7 +190,7 @@ $('#choice2').append(row);
 $('#fake2').append(column1);
 $('#column1Fake2').append(column2);
 $('#column32Fake1').append(column3);
-console.log($('#column2Fake2').attr("title"));//this is the value of true or false
+// console.log($('#column2Fake2').attr("title"));//this is the value of true or false
 }
 
 //DISPLAYS CHOICE3 TO ASK
@@ -199,7 +215,7 @@ $('#choice3').append(row);
 $('#fake3').append(column1);
 $('#column1Fake3').append(column2);
 $('#column32Fake3').append(column3);
-console.log($('#column2Fake3').attr("title"));//this is the value of true or false
+// console.log($('#column2Fake3').attr("title"));//this is the value of true or false
 }
 
 
@@ -225,10 +241,10 @@ $('#choice4').append(row);
 $('#fake4').append(column1);
 $('#column1Fake4').append(column2);
 $('#column32Fake4').append(column3);
-console.log($('#column2Fake4').attr("title"));//this is the value of true or false
+// console.log($('#column2Fake4').attr("title"));//this is the value of true or false
 }
 
-//DISPLAYS REMAINING TIME '+ <span id="display-time">00</span>'
+//DISPLAYS REMAINING TIME
 function displayTimer (){
   var row = $('<div>');
   row.attr('id', 'timer');
@@ -251,18 +267,28 @@ function displayTimer (){
   $('#timer').append(column1);
   $('#line1').append(column2);
   $('#line2').append(column3);
-
 }
+
 
 //START BUTTON
 $('#start').on('click', function(){
   $('#start').hide();
   timer.startTime();
+  jumper = setTimeout(nextBatch, 20000);
   displayTimer();
-  i = 4;
   displayQuestion(i);//pass the question i when looping
   displayFake1(i);
   displayFake2(i);
   displayFake3(i);
   displayFake4(i);
 });
+
+
+
+function nextBatch(){
+  displayQuestion(i);//pass the question i when looping
+  displayFake1(i);
+  displayFake2(i);
+  displayFake3(i);
+  displayFake4(i);
+}
