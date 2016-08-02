@@ -1,43 +1,11 @@
 
 var i = 0; //check the number of times the timer rests.
+var j = 0;
 var counter;
-var jumper;
-//Addresses Time Remaining.
-var timer = {
-  time: 20,
-  startTime: function(){
-  counter = setInterval(timer.decrement, 1000);
-  },
-  decrement: function(){
-    timer.time--;
-    $('#display-time').html(timer.time );
-      if (timer.time === 0){
-        timer.reset();
-        i++;
-        timer.checkCycles();
-      }
-  },
-  reset: function(){
-    timer.time = 20;
-  },
-  stop: function (){
-    clearInterval(counter);
-
-  },
-  checkCycles: function (){
-  jumper = setTimeout(nextBatch, 20000);
-
-    if( i === 8 ){
-      clearTimeout(jumper);
-    }
-
-    if( i === quiz.length ){
-      timer.stop(); //timer stop in i cycles
-
-    }
-  }
-
-}
+var shortCounter;
+var noAnswer;
+var jumpNext;
+var timesIsUP = 0;//unanswered
 
 
 //Set of questions and answers.
@@ -67,7 +35,7 @@ var quiz = [
      fake4:['Jupiter Astrofact:  Rotation period: 27 hours.', false]
  	},
  	{
-     question:'How many moons does mars have?',
+     question:'How many moons does Mars have?',
      answer: 'Mars has 2 small moons: Phobos and Deimos whose names mean "fear" and "panic".',
      fake1:['Mars Astrofact: Mars has 3 small moons.', false],
      fake2:['Mars Astrofact: Mars has no moons', false],
@@ -116,8 +84,19 @@ var quiz = [
   },
 ];
 
-// create screen1 with Boostrap in jquery format
+//START BUTTON
+$('#start').on('click', function(){
+  $('#start').hide();
+  timer.startTime();
+  displayTimer();
+  displayQuestion(i);//pass the question i when looping
+  displayFake1(i);
+  displayFake2(i);
+  displayFake3(i);
+  displayFake4(i);
+});
 
+// create screen1 with Boostrap in jquery format
 //DISPLAYS QUESTION TO ASK
 function displayQuestion(i){
   var row = $('<div>');
@@ -268,24 +247,114 @@ function displayTimer (){
   $('#line1').append(column2);
   $('#line2').append(column3);
 }
+// Main TIMER
+var timer = {
+  time: 10,
+  startTime: function(){
+  counter = setInterval(timer.decrement, 1000);
+  },
+  decrement: function(){
+    timer.time--;
+    $('#display-time').html(timer.time );
+      if (timer.time === 0){
+        timer.stop;
+        timer.reset();
+        timesIsUP++;
+        eraseQuestions();
+        outOfTime();
+        $('#display-time').hide();
+        secondtimer.startTime();
+        timer.checkCycles();
+      }
+  },
+  reset: function(){
+    timer.time = 13;
+  },
+  stop: function (){
+    clearInterval(counter);
+    // erase();
+  },
+  checkCycles: function (){
+    // noAnswer = setTimeout( nextBatch(), 3000);
+      if( i === 8 ){
+        timer.stop();
+      }
+  }
+}
 
+//Second timer
+var secondtimer = {
+  time: 3,
+  startTime: function(){
+  shortCounter = setInterval(secondtimer.decrement, 1000);
+  },
+  decrement: function(){
+    secondtimer.time--;
 
-//START BUTTON
-$('#start').on('click', function(){
-  $('#start').hide();
-  timer.startTime();
-  jumper = setTimeout(nextBatch, 20000);
-  displayTimer();
-  displayQuestion(i);//pass the question i when looping
-  displayFake1(i);
-  displayFake2(i);
-  displayFake3(i);
-  displayFake4(i);
+      if (secondtimer.time === 0){
+        secondtimer.stop();
+        secondtimer.reset();
+        eraseOutOfTime();
+        nextBatch();
+        $('#display-time').show();
+      }
+      if (j === 8){
+        secondtimer.stop;
+      }
+  },
+  reset: function(){
+    secondtimer.time = 3;
+  },
+  stop: function (){
+    clearInterval(shortCounter);
+  },
+}
+// ACCESS FAKE QUESTIONS ON CLICK
+$('#choice1').on('click', function(){
+  console.log('hello1');
+});
+$('#choice2').on('click', function(){
+  console.log('hello2');
+});
+$('#choice3').on('click', function(){
+  console.log('hello3');
+});
+$('#choice4').on('click', function(){
+  console.log('hello4');
 });
 
+//DISPLAYS OUT OF TIME SCREEN
+function outOfTime(){
+  var row = $('<div>');
+  row.attr('id', 'no-time');
+  row.attr('class', 'col-lg-12');
+  var column1 = $('<div>');
+  column1.html('<h2>OUT OF TIME</h2>');
+  column1.attr('id', 'out')
+  var column2 = $('<div>');
+  column2.html('<h2>The correct answer was  '+ quiz[i].answer + '.</h2>'); //SHOW ANSWER HERE
+  $('#wrapper').append(row);
+  $('#no-time').append(column1);
+  $('#out').append(column2);
+}
 
+//TO ERASE PREVIOUS BATCH
+function eraseQuestions(){
+  $('#question').remove();
+  $('#fake1').remove();
+  $('#fake2').remove();
+  $('#fake3').remove();
+  $('#fake4').remove();
+}
+//TO ERASE OUT OF TIME MESSAGE
+function eraseOutOfTime(){
+  $('#no-time').remove();
+}
 
+//SHOWS NEXT SET OF QUESTIONS
 function nextBatch(){
+  j++; i++;
+  timer.startTime;
   displayQuestion(i);//pass the question i when looping
   displayFake1(i);
   displayFake2(i);
