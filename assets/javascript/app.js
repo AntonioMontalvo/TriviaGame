@@ -3,9 +3,12 @@ var i = 0; //check the number of times the timer rests.
 var j = 0;
 var counter;
 var shortCounter;
-var noAnswer;
+var correct = 0;
+var incorrect = 0;
+var noAnswer = 0;
 var jumpNext;
 var timesIsUP = 0;//unanswered
+
 
 
 //Set of questions and answers.
@@ -275,9 +278,9 @@ var timer = {
     // erase();
   },
   checkCycles: function (){
-    // noAnswer = setTimeout( nextBatch(), 3000);
       if( i === 8 ){
         timer.stop();
+        showResults();
       }
   }
 }
@@ -323,8 +326,13 @@ $('#choice4').on('click', function(){
   console.log('hello4');
 });
 
+//ACCESS TO RESTART
+$('#restart').on('click', function(){
+  location.reload();
+});
 //DISPLAYS OUT OF TIME SCREEN
 function outOfTime(){
+  noAnswer++;
   var row = $('<div>');
   row.attr('id', 'no-time');
   row.attr('class', 'col-lg-12');
@@ -346,7 +354,7 @@ function eraseQuestions(){
   $('#fake3').remove();
   $('#fake4').remove();
 }
-//TO ERASE OUT OF TIME MESSAGE
+//TO ERASE OUT-OF-TIME MESSAGE
 function eraseOutOfTime(){
   $('#no-time').remove();
 }
@@ -360,4 +368,41 @@ function nextBatch(){
   displayFake2(i);
   displayFake3(i);
   displayFake4(i);
+}
+//SHOWS RESULT SCREEN
+function results(){
+  var row = $('<div>');
+  row.attr('id', 'results');
+  row.attr('class', 'col-lg-12');
+
+  var column1 = $('<div>');
+  column1.html('<h2>All done, heres how you did!</h2>');
+  column1.attr('id', 'done');
+
+  var column2 = $('<div>');
+  column2.html('<h2>Correct Answers: '+ correct + '</h2>');
+  column2.attr('id', 'done2');
+
+  var column3 = $('<div>');
+  column3.html('<h2>Incorrect Answers: '+ incorrect + '</h2>');
+  column3.attr('id', 'done3');
+
+  var column4 = $('<div>');
+  column4.html('<h2>Unanswered: '+ noAnswer + '</h2>');
+  column4.attr('id', 'done4');
+
+  var restart = $('<button>');
+  restart.text('Restart');
+  restart.attr('id', 'restart');
+  restart.attr('class', 'btn btn-default btn-lg btn-block"');
+
+  $('#wrapper').append(row);
+  $('#results').append(column1);
+  $('#done').append(column2);
+  $('#done2').append(column3);
+  $('#done3').append(column4);
+  $('#done4').append(restart);
+}
+function showResults(){
+  var resultado = setTimeout(results, 3000);
 }

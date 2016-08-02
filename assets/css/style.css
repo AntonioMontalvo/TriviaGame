@@ -42,12 +42,21 @@ p{
     background-color: rgba(222, 181, 32, 0.93);
     font-family: 'Space Mono', monospace;
 }
+#restart{
+    display: table;
+    width: 280px;
+    height: 70px;
+    margin: auto;
+    background-color: rgba(222, 181, 32, 0.93);
+    font-family: 'Space Mono', monospace;
+}
+#done4{
+  margin-bottom: 50px;
+}
 #timer{
   margin-top:20px;
 }
-/*#question{
-  background-color: rgba(239, 233, 233, 0.27);
-}*/
+
 #fake1{
     background-color: rgba(241, 135, 135, 0.27);
     margin-top: 10px;
