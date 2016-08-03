@@ -401,21 +401,21 @@ var secondtimer = {
 
 //ACCESS TO RESTART
 $('#restart').on('click', function(){
-  i = 0; //check the number of times the timer rests.
-  j = 0;
-  counter;
-  shortCounter;
-  correct = 0;
-  incorrect = 0;
-  noAnswer = 0;
-  $('#restart').hide();
-  timer.startTime();
-  displayTimer();
-  displayQuestion(i);//pass the question i when looping
-  displayFake1(i);
-  displayFake2(i);
-  displayFake3(i);
-  displayFake4(i);
+  // i = 0; //check the number of times the timer rests.
+  // j = 0;
+  // counter;
+  // shortCounter;
+  // correct = 0;
+  // incorrect = 0;
+  // noAnswer = 0;
+  // $('#restart').hide();
+  // timer.startTime();
+  // displayTimer();
+  // displayQuestion(i);//pass the question i when looping
+  // displayFake1(i);
+  // displayFake2(i);
+  // displayFake3(i);
+  // displayFake4(i);
   console.log('hello');
 });
 //DISPLAYS OUT OF TIME SCREEN
@@ -501,6 +501,9 @@ function eraseOutOfTime(){
 
 //SHOWS NEXT SET OF QUESTIONS
 function nextBatch(){
+  if(j === 8){
+    return;
+  }
   j++; i++;
   timer.startTime;
   displayQuestion(i);//pass the question i when looping
@@ -532,7 +535,7 @@ function results(){
   column4.attr('id', 'done4');
 
   var restart = $('<button>');
-  restart.text('Restart');
+  restart.text('start');
   restart.attr('id', 'restart');
   restart.attr('class', 'btn btn-default btn-lg btn-block"');
 
