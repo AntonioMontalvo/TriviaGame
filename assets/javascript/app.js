@@ -15,15 +15,17 @@ var quiz = [
      fake1:['Water exists as liquid, and gas on Neptune', false],
      fake2:['Earth is the only planet in the solar system where water can exist as liquid, and gas.', true],
      fake3:['Nope', false],
-     fake4:['There are 3 planets in the solar system where water can exist as liquid, and gas.', false]
+     fake4:['There are 3 planets in the solar system where water can exist as liquid, and gas.', false],
+     image: 'assets/images/earth1.jpeg'
  	},
   {
      question:'What is the shape of the Earth?',
      answer: ['The Earth is slightly pear-shaped.', true],
      fake1:['Earth is a perfect sphere.', false],
      fake2:['Earth is a shaped like an oval.', false],
-     fake3:['Earth is shaped like a banana', false],
-     fake4:['The Earth is slightly pear-shaped.', true]
+     fake3:['Earth is shaped like a banana.', false],
+     fake4:['The Earth is slightly pear-shaped.', true],
+     image: 'assets/images/shape.jpeg'
  	},
  	{
      question:"What is Jupiter's rotation period?",
@@ -31,7 +33,8 @@ var quiz = [
      fake1:['Jupiter Astrofact:  Rotation period: 21 hours.', false],
      fake2:['Jupiter Astrofact:  Rotation period: 11 hours.', false],
      fake3:['Jupiter Astrofact:  Rotation period: 10 hours.', true],
-     fake4:['Jupiter Astrofact:  Rotation period: 27 hours.', false]
+     fake4:['Jupiter Astrofact:  Rotation period: 27 hours.', false],
+     image: 'assets/images/jupiter.jpeg'
  	},
  	{
      question:'How many moons does Mars have?',
@@ -39,7 +42,8 @@ var quiz = [
      fake1:['Mars Astrofact: Mars has 3 small moons.', false],
      fake2:['Mars Astrofact: Mars has no moons', false],
      fake3:['Mars Astrofact: Mars has 1 small moon.', false],
-     fake4:['Mars has 2 small moons: Phobos and Deimos whose names mean "fear" and "panic".', true]
+     fake4:['Mars has 2 small moons: Phobos and Deimos whose names mean "fear" and "panic".', true],
+     image: 'assets/images/mars.jpeg'
  	},
  	{
      question:"What is Mercury's orbital period?",
@@ -47,39 +51,44 @@ var quiz = [
      fake1:['Mercury orbits The Sun faster than any other planet: One year lasts just 88 Earth days.', true],
      fake2:['It take 240 days to orbit the Sun.', false],
      fake3:['One year in Mercury lasts 390 Earth days.', false],
-     fake4:['Mercury orbits The Sun in 100 days.', false]
+     fake4:['Mercury orbits The Sun in 100 days.', false],
+     image: 'assets/images/meorbit.png'
  	},
  	{
      question:'How are days compared to years on Mercury?',
      answer: ['Days are longer than years on the planet Mercury.', true],
      fake1:['Years are longer than days.', false],
-     fake2:['They are the same', false],
+     fake2:['They are the same.', false],
      fake3:['Days are longer than years on the planet Mercury.', true],
-     fake4:['Every two years days are shorter than years.', false]
+     fake4:['Every two years days are shorter than years.', false],
+     image: 'assets/images/mercury1.jpeg'
  	},
  	{
      question:'How many moons does Mercury have?.',
-     answer: ['Mercury Astrofact: Moons: 0.', true],
+     answer: ['Moons: 0.', true],
      fake1:['Mercury has 3 small moons.', false],
-     fake2:['Mercury Astrofact: Moons: 0.', true],
+     fake2:['Moons: 0.', true],
      fake3:['Mercury has 13 small moons.', false],
-     fake4:['Mercury has 2 moons.', false]
+     fake4:['Mercury has 2 moons.', false],
+     image: 'assets/images/mercury2.jpeg'
  	},
   {
      question:'How many moons does Neptune have?',
      answer: ['Neptune Astrofact: Moons: 13.', true],
-     fake1:['Neptune Astrofact: Moons: 13.', true],
-     fake2:['Neptune Astrofact: Moons: 43.', false],
-     fake3:['Neptune Astrofact: Moons: 3.', false],
-     fake4:['Neptune Astrofact: Moons: 33.', false]
+     fake1:['Neptune Moons: 13.', true],
+     fake2:['Neptune Moons: 43.', false],
+     fake3:['Neptune Moons: 3.', false],
+     fake4:['Neptune Moons: 33.', false],
+     image: 'assets/images/neptune.jpeg'
      },
      {
      question:'How many moons does Saturn have?',
      answer: ['Saturn Astrofact: Moons: 62.  Of those 53 are named.', true],
-     fake1:['Saturn Astrofact: Moons: 6.',false],
-     fake2:['Saturn Astrofact: Moons: 42.',false],
-     fake3:['Saturn Astrofact: Moons: 162.', false],
-     fake4:['Saturn Astrofact: Moons: 62.  Of those 53 are named.', true]
+     fake1:['Saturn Moons: 6.',false],
+     fake2:['Saturn Moons: 42.',false],
+     fake3:['Saturn Moons: 162.', false],
+     fake4:['Saturn Moons: 62.  Of those 53 are named.', true],
+     image: 'assets/images/saturn.png'
   },
 ];
 
@@ -298,7 +307,7 @@ $('#choice4').on('click', function(){
     displayWrongAnswer();
     $('#display-time').hide();
     secondtimer.startTime();
-    timer.checkCycles(); 
+    timer.checkCycles();
   }
 });
 
@@ -329,7 +338,7 @@ function displayTimer (){
 
 // MAIN TIMER
 var timer = {
-  time: 10,
+  time: 20,
   startTime: function(){
   counter = setInterval(timer.decrement, 1000);
   },
@@ -347,7 +356,7 @@ var timer = {
       }
   },
   reset: function(){
-    timer.time = 13;
+    timer.time = 23;
   },
   stop: function (){
     clearInterval(counter);
@@ -419,10 +428,14 @@ function outOfTime(){
   column1.html('<h2>OUT OF TIME</h2>');
   column1.attr('id', 'out')
   var column2 = $('<div>');
-  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '</h2>'); //SHOW ANSWER HERE
+  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '</h2>');
+  column2.attr('id', 'out2');
+  var column3 = $('<img>');
+  column3.attr('src', quiz[i].image); //SHOW ANSWER HERE
   $('#wrapper').append(row);
   $('#no-time').append(column1);
   $('#out').append(column2);
+  $('#out2').append(column3);
 }
 
 //DISPLAY CORRECT ANSWER
@@ -433,9 +446,11 @@ function displayCorrectAnswer (){
   row.attr('class', 'col-lg-12');
   var column1 = $('<div>');
   column1.html('<h2>CORRECT!</h2>');
-  column1.attr('id', 'thatsright')
-  var column2 = $('<div>');
-  column2.html('<h2>FEATURED IMAGE HERE</h2>'); //SHOW ANSWER HERE
+  column1.attr('id', 'thatsright');
+  var column2 = $('<img>');
+  column2.attr('src', quiz[i].image);
+  column2.attr('id', 'thatsright2');
+
   $('#wrapper').append(row);
   $('#right').append(column1);
   $('#thatsright').append(column2);
@@ -455,10 +470,16 @@ function displayWrongAnswer (){
   column1.html('<h2>NOPE!</h2>');
   column1.attr('id', 'nope')
   var column2 = $('<div>');
-  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '.</h2>'); //SHOW ANSWER HERE
+  column2.attr('id', 'no');
+  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '</h2>');
+  var column3 = $('<img>');
+  column3.attr('src', quiz[i].image);
+   //SHOW ANSWER HERE
   $('#wrapper').append(row);
   $('#wrong').append(column1);
   $('#nope').append(column2);
+  $('#no').append(column3);
+
 }
 //TO ERASE CORRECT ANSWER
 function eraseWrongAnswer(){

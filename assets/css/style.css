@@ -9,7 +9,7 @@ h1{
    text-align: center;
    color: rgba(222, 181, 32, 0.93);
    font-family: 'Bungee Shade', cursive;
-   font-size: 50px;
+   font-size: 80px;
 }
 h2{
    text-align: center;
@@ -19,9 +19,9 @@ h2{
 }
 h3{
    text-align: center;
-   color: rgba(255, 105, 0, 0.82);
+   color: rgba(0, 255, 208, 0.72);
    font-family: 'Space Mono', monospace;
-   font-size: 14px;
+   font-size: 22px;
 }
 p{
   text-align: center;
@@ -29,8 +29,14 @@ p{
   font-family: 'Space Mono', monospace;
   font-size: 24px;
 }
+img{
+  padding-top: 50px;
+  margin: auto;
+  display: table;
+}
 #question h3{
-  font-size: 28px;
+  color: rgba(255, 105, 0, 0.82);
+  font-size: 32px;
 }
 #begin{
    margin-top: 100px;
