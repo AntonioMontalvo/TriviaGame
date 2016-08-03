@@ -6,16 +6,12 @@ var shortCounter;
 var correct = 0;
 var incorrect = 0;
 var noAnswer = 0;
-var jumpNext;
-var timesIsUP = 0;//unanswered
-
-
 
 //Set of questions and answers.
 var quiz = [
     {
      question:'Is Earth the only planet in the solar system where water can exist as liquid, and gas?',
-     answer: 'Earth is the only planet in the solar system where water can exist as liquid, and gas.',
+     answer: ['Earth is the only planet in the solar system where water can exist as liquid, and gas.' , true],
      fake1:['Water exists as liquid, and gas on Neptune', false],
      fake2:['Earth is the only planet in the solar system where water can exist as liquid, and gas.', true],
      fake3:['Nope', false],
@@ -23,7 +19,7 @@ var quiz = [
  	},
   {
      question:'What is the shape of the Earth?',
-     answer: 'The Earth is slightly pear-shaped.',
+     answer: ['The Earth is slightly pear-shaped.', true],
      fake1:['Earth is a perfect sphere.', false],
      fake2:['Earth is a shaped like an oval.', false],
      fake3:['Earth is shaped like a banana', false],
@@ -31,7 +27,7 @@ var quiz = [
  	},
  	{
      question:"What is Jupiter's rotation period?",
-     answer: 'Jupiter Astrofact:  Rotation period: 10 hours.',
+     answer: ['Jupiter Astrofact:  Rotation period: 10 hours.', true],
      fake1:['Jupiter Astrofact:  Rotation period: 21 hours.', false],
      fake2:['Jupiter Astrofact:  Rotation period: 11 hours.', false],
      fake3:['Jupiter Astrofact:  Rotation period: 10 hours.', true],
@@ -39,7 +35,7 @@ var quiz = [
  	},
  	{
      question:'How many moons does Mars have?',
-     answer: 'Mars has 2 small moons: Phobos and Deimos whose names mean "fear" and "panic".',
+     answer: ['Mars has 2 small moons: Phobos and Deimos whose names mean "fear" and "panic".', true],
      fake1:['Mars Astrofact: Mars has 3 small moons.', false],
      fake2:['Mars Astrofact: Mars has no moons', false],
      fake3:['Mars Astrofact: Mars has 1 small moon.', false],
@@ -47,7 +43,7 @@ var quiz = [
  	},
  	{
      question:"What is Mercury's orbital period?",
-     answer: 'Mercury orbits The Sun faster than any other planet: One year lasts just 88 Earth days.',
+     answer: ['Mercury orbits The Sun faster than any other planet: One year lasts just 88 Earth days.', true],
      fake1:['Mercury orbits The Sun faster than any other planet: One year lasts just 88 Earth days.', true],
      fake2:['It take 240 days to orbit the Sun.', false],
      fake3:['One year in Mercury lasts 390 Earth days.', false],
@@ -55,7 +51,7 @@ var quiz = [
  	},
  	{
      question:'How are days compared to years on Mercury?',
-     answer: 'Days are longer than years on the planet Mercury.',
+     answer: ['Days are longer than years on the planet Mercury.', true],
      fake1:['Years are longer than days.', false],
      fake2:['They are the same', false],
      fake3:['Days are longer than years on the planet Mercury.', true],
@@ -63,7 +59,7 @@ var quiz = [
  	},
  	{
      question:'How many moons does Mercury have?.',
-     answer: 'Mercury Astrofact: Moons: 0.',
+     answer: ['Mercury Astrofact: Moons: 0.', true],
      fake1:['Mercury has 3 small moons.', false],
      fake2:['Mercury Astrofact: Moons: 0.', true],
      fake3:['Mercury has 13 small moons.', false],
@@ -71,7 +67,7 @@ var quiz = [
  	},
   {
      question:'How many moons does Neptune have?',
-     answer: 'Neptune Astrofact: Moons: 13.',
+     answer: ['Neptune Astrofact: Moons: 13.', true],
      fake1:['Neptune Astrofact: Moons: 13.', true],
      fake2:['Neptune Astrofact: Moons: 43.', false],
      fake3:['Neptune Astrofact: Moons: 3.', false],
@@ -79,7 +75,7 @@ var quiz = [
      },
      {
      question:'How many moons does Saturn have?',
-     answer: 'Saturn Astrofact: Moons: 62.  Of those 53 are named.',
+     answer: ['Saturn Astrofact: Moons: 62.  Of those 53 are named.', true],
      fake1:['Saturn Astrofact: Moons: 6.',false],
      fake2:['Saturn Astrofact: Moons: 42.',false],
      fake3:['Saturn Astrofact: Moons: 162.', false],
@@ -137,7 +133,7 @@ function displayFake1(i){ //i
   var column2 = $('<div>')
   column2.attr('id', 'column2Fake1');
   column2.attr('class', 'col-lg-4');
-  column2.attr('title', quiz[i].fake1[1]);
+  column2.attr('data-name', quiz[i].fake1[1]);
   column2.html('<h3>' + quiz[i].fake1[0]+ '</h3>');
   var column3 = $('<div>')
   column3.attr('id', 'column3Fake1');
@@ -163,7 +159,7 @@ function displayFake2(i){ //i
   var column2 = $('<div>')
   column2.attr('id', 'column2Fake2');
   column2.attr('class', 'col-lg-4');
-  column2.attr('title', quiz[i].fake2[1]);
+  column2.attr('data-name', quiz[i].fake2[1]);
   column2.html('<h3>' + quiz[i].fake2[0]+ '</h3>');
   var column3 = $('<div>')
   column3.attr('id', 'column3Fake2');
@@ -188,7 +184,7 @@ function displayFake3(i){ //i
   var column2 = $('<div>')
   column2.attr('id', 'column2Fake3');
   column2.attr('class', 'col-lg-4');
-  column2.attr('title', quiz[i].fake3[1]);
+  column2.attr('data-name', quiz[i].fake3[1]);
   column2.html('<h3>' + quiz[i].fake3[0]+ '</h3>');
   var column3 = $('<div>')
   column3.attr('id', 'column3Fake3');
@@ -214,7 +210,7 @@ function displayFake4(i){ //i
   var column2 = $('<div>')
   column2.attr('id', 'column2Fake4');
   column2.attr('class', 'col-lg-4');
-  column2.attr('title', quiz[i].fake4[1]);
+  column2.attr('data-name', quiz[i].fake4[1]);
   column2.html('<h3>' + quiz[i].fake4[0]+ '</h3>');
   var column3 = $('<div>')
   column3.attr('id', 'column3Fake4');
@@ -225,6 +221,86 @@ $('#column1Fake4').append(column2);
 $('#column32Fake4').append(column3);
 // console.log($('#column2Fake4').attr("title"));//this is the value of true or false
 }
+
+// ACCESS FAKE QUESTIONS ON CLICK
+$('#choice1').on('click', function(){
+  if (quiz[i].answer[1] === $('#column2Fake1').data("name")){
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayCorrectAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+
+  } else {
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayWrongAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+  }
+});
+$('#choice2').on('click', function(){
+  if (quiz[i].answer[1] === $('#column2Fake2').data("name")){
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayCorrectAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+
+  } else {
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayWrongAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+  }
+});
+$('#choice3').on('click', function(){
+  if (quiz[i].answer[1] === $('#column2Fake3').data("name")){
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayCorrectAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+  } else {
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayWrongAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+  }
+});
+$('#choice4').on('click', function(){
+  if (quiz[i].answer[1] === $('#column2Fake4').data("name")){
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayCorrectAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles();
+  } else {
+    timer.stop;
+    timer.reset();
+    eraseQuestions();
+    displayWrongAnswer();
+    $('#display-time').hide();
+    secondtimer.startTime();
+    timer.checkCycles(); 
+  }
+});
 
 //DISPLAYS REMAINING TIME
 function displayTimer (){
@@ -250,7 +326,8 @@ function displayTimer (){
   $('#line1').append(column2);
   $('#line2').append(column3);
 }
-// Main TIMER
+
+// MAIN TIMER
 var timer = {
   time: 10,
   startTime: function(){
@@ -262,7 +339,6 @@ var timer = {
       if (timer.time === 0){
         timer.stop;
         timer.reset();
-        timesIsUP++;
         eraseQuestions();
         outOfTime();
         $('#display-time').hide();
@@ -275,7 +351,6 @@ var timer = {
   },
   stop: function (){
     clearInterval(counter);
-    // erase();
   },
   checkCycles: function (){
       if( i === 8 ){
@@ -298,6 +373,8 @@ var secondtimer = {
         secondtimer.stop();
         secondtimer.reset();
         eraseOutOfTime();
+        eraseCorrectAnswer();
+        eraseWrongAnswer();
         nextBatch();
         $('#display-time').show();
       }
@@ -312,23 +389,25 @@ var secondtimer = {
     clearInterval(shortCounter);
   },
 }
-// ACCESS FAKE QUESTIONS ON CLICK
-$('#choice1').on('click', function(){
-  console.log('hello1');
-});
-$('#choice2').on('click', function(){
-  console.log('hello2');
-});
-$('#choice3').on('click', function(){
-  console.log('hello3');
-});
-$('#choice4').on('click', function(){
-  console.log('hello4');
-});
 
 //ACCESS TO RESTART
 $('#restart').on('click', function(){
-  location.reload();
+  i = 0; //check the number of times the timer rests.
+  j = 0;
+  counter;
+  shortCounter;
+  correct = 0;
+  incorrect = 0;
+  noAnswer = 0;
+  $('#restart').hide();
+  timer.startTime();
+  displayTimer();
+  displayQuestion(i);//pass the question i when looping
+  displayFake1(i);
+  displayFake2(i);
+  displayFake3(i);
+  displayFake4(i);
+  console.log('hello');
 });
 //DISPLAYS OUT OF TIME SCREEN
 function outOfTime(){
@@ -340,10 +419,50 @@ function outOfTime(){
   column1.html('<h2>OUT OF TIME</h2>');
   column1.attr('id', 'out')
   var column2 = $('<div>');
-  column2.html('<h2>The correct answer was  '+ quiz[i].answer + '.</h2>'); //SHOW ANSWER HERE
+  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '</h2>'); //SHOW ANSWER HERE
   $('#wrapper').append(row);
   $('#no-time').append(column1);
   $('#out').append(column2);
+}
+
+//DISPLAY CORRECT ANSWER
+function displayCorrectAnswer (){
+  correct++;
+  var row = $('<div>');
+  row.attr('id', 'right');
+  row.attr('class', 'col-lg-12');
+  var column1 = $('<div>');
+  column1.html('<h2>CORRECT!</h2>');
+  column1.attr('id', 'thatsright')
+  var column2 = $('<div>');
+  column2.html('<h2>FEATURED IMAGE HERE</h2>'); //SHOW ANSWER HERE
+  $('#wrapper').append(row);
+  $('#right').append(column1);
+  $('#thatsright').append(column2);
+}
+//TO ERASE CORRECT ANSWER
+function eraseCorrectAnswer(){
+  $('#right').remove();
+}
+
+//DISPLAYS WRONG ANSWER
+function displayWrongAnswer (){
+  incorrect++;
+  var row = $('<div>');
+  row.attr('id', 'wrong');
+  row.attr('class', 'col-lg-12');
+  var column1 = $('<div>');
+  column1.html('<h2>NOPE!</h2>');
+  column1.attr('id', 'nope')
+  var column2 = $('<div>');
+  column2.html('<h2>The correct answer was  '+ quiz[i].answer[0] + '.</h2>'); //SHOW ANSWER HERE
+  $('#wrapper').append(row);
+  $('#wrong').append(column1);
+  $('#nope').append(column2);
+}
+//TO ERASE CORRECT ANSWER
+function eraseWrongAnswer(){
+  $('#wrong').remove();
 }
 
 //TO ERASE PREVIOUS BATCH

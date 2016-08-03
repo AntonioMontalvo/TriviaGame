@@ -43,6 +43,7 @@ p{
     font-family: 'Space Mono', monospace;
 }
 #restart{
+    padding-top: 21px;
     display: table;
     width: 280px;
     height: 70px;
