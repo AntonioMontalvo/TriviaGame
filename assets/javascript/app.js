@@ -22,7 +22,7 @@ var quiz = [
      question:'What is the shape of the Earth?',
      answer: ['The Earth is slightly pear-shaped.', true],
      fake1:['Earth is a perfect sphere.', false],
-     fake2:['Earth is a shaped like an oval.', false],
+     fake2:['Earth is shaped like an oval.', false],
      fake3:['Earth is shaped like a banana.', false],
      fake4:['The Earth is slightly pear-shaped.', true],
      image: 'assets/images/shape.jpeg'
@@ -535,7 +535,7 @@ function results(){
   column4.attr('id', 'done4');
 
   var restart = $('<button>');
-  restart.text('start');
+  restart.text('restart');
   restart.attr('id', 'restart');
   restart.attr('class', 'btn btn-default btn-lg btn-block"');
 

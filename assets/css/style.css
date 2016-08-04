@@ -9,7 +9,7 @@ h1{
    text-align: center;
    color: rgba(222, 181, 32, 0.93);
    font-family: 'Bungee Shade', cursive;
-   font-size: 80px;
+   font-size: 70px;
 }
 h2{
    text-align: center;
@@ -67,20 +67,20 @@ img{
 #fake1{
     background-color: rgba(241, 135, 135, 0.27);
     margin-top: 10px;
-    margin-botton: 10px;
+    margin-bottom: 10px;
 }
 #fake2{
     background-color: rgba(241, 228, 135, 0.27);
     margin-top: 10px;
-    margin-botton: 10px;
+    margin-bottom: 10px;
 }
 #fake3{
     background-color: rgba(135, 207, 241, 0.27);
     margin-top: 10px;
-    margin-botton: 10px;
+    margin-bottom: 10px;
 }
 #fake4{
     background-color: rgba(156, 135, 241, 0.27);
     margin-top: 10px;
-    margin-botton: 10px;
+    margin-bottom: 10px;
 }
