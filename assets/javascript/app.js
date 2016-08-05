@@ -335,6 +335,9 @@ function displayTimer (){
   $('#line1').append(column2);
   $('#line2').append(column3);
 }
+function eraseTimer(){
+  $('#clock').hide();
+}
 
 // MAIN TIMER
 var timer = {
@@ -400,24 +403,24 @@ var secondtimer = {
 }
 
 //ACCESS TO RESTART
-$('#restart').on('click', function(){
-  // i = 0; //check the number of times the timer rests.
-  // j = 0;
-  // counter;
-  // shortCounter;
-  // correct = 0;
-  // incorrect = 0;
-  // noAnswer = 0;
-  // $('#restart').hide();
-  // timer.startTime();
-  // displayTimer();
-  // displayQuestion(i);//pass the question i when looping
-  // displayFake1(i);
-  // displayFake2(i);
-  // displayFake3(i);
-  // displayFake4(i);
-  console.log('hello');
-});
+function restart (){
+  eraseResults();
+  i = 0; //check the number of times the timer rests.
+  j = 0;
+  timer.time = 21;
+  counter;
+  shortCounter;
+  correct = 0;
+  incorrect = 0;
+  noAnswer = 0;
+  $('#restart').hide();
+  timer.startTime();
+  displayQuestion(i);//pass the question i when looping
+  displayFake1(i);
+  displayFake2(i);
+  displayFake3(i);
+  displayFake4(i);
+}
 //DISPLAYS OUT OF TIME SCREEN
 function outOfTime(){
   noAnswer++;
@@ -534,18 +537,22 @@ function results(){
   column4.html('<h2>Unanswered: '+ noAnswer + '</h2>');
   column4.attr('id', 'done4');
 
-  var restart = $('<button>');
-  restart.text('restart');
-  restart.attr('id', 'restart');
-  restart.attr('class', 'btn btn-default btn-lg btn-block"');
+  var restartBtn = $('<button>');
+  restartBtn.text('restart');
+  restartBtn.attr('id', 'restart');
+  restartBtn.attr('class', 'btn btn-default btn-lg btn-block"');
 
   $('#wrapper').append(row);
   $('#results').append(column1);
   $('#done').append(column2);
   $('#done2').append(column3);
   $('#done3').append(column4);
-  $('#done4').append(restart);
+  $('#done4').append(restartBtn);
+  $('#restart').on('click', restart);
 }
 function showResults(){
   var resultado = setTimeout(results, 3000);
+}
+function eraseResults(){
+  $('#results').remove();
 }
